@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
-        // Your Firebase Config - REPLACE WITH YOUR ACTUAL CONFIG
         const firebaseConfig = {
   apiKey: "AIzaSyBqRSXF6uGrWUpcPGjT7VycnD_iCoce58E",
   authDomain: "irtajaportfolio.firebaseapp.com",
@@ -23,8 +20,7 @@
   messagingSenderId: "29579184478",
   appId: "1:29579184478:web:6905008f56cd11239027cf"
 };
-        
-        // Initialize Firebase
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
