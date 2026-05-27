@@ -1,15 +1,10 @@
-// ============================================
-// EMAILJS CONFIGURATION
-// ============================================
+
 const EMAILJS_PUBLIC_KEY = "cBIXq1Acx1RmjbGO6";
 const EMAILJS_SERVICE_ID = "service_hwtb6sg";
 const EMAILJS_TEMPLATE_ID = "template_j86ztqc";
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
-// ============================================
-// PRELOADER
-// ============================================
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     setTimeout(() => {
@@ -20,9 +15,6 @@ window.addEventListener('load', () => {
     }, 1000);
 });
 
-// ============================================
-// DARK MODE
-// ============================================
 const themeToggle = document.querySelector('.theme-toggle');
 const body = document.body;
 const savedTheme = localStorage.getItem('theme');
@@ -184,10 +176,9 @@ if (contactForm) {
 }
 
 // ============================================
-// FIREBASE AUTHENTICATION (Already Configured)
+// FIREBASE AUTHENTICATION
 // ============================================
 
-// DOM Elements
 const loginBtn = document.getElementById('loginBtn');
 const loginModal = document.getElementById('loginModal');
 const signupModal = document.getElementById('signupModal');
@@ -277,7 +268,10 @@ async function showProfile() {
             if (userData) {
                 document.getElementById('profileName').textContent = userData.name;
                 document.getElementById('profileEmail').textContent = currentUser.email;
-                const formattedDate = new Date(userData.createdAt).toLocaleDateString();
+                document.getElementById('profileEmailDetail').textContent = currentUser.email;
+                const formattedDate = new Date(userData.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
                 document.getElementById('profileDate').textContent = formattedDate;
                 openModal(profileModal);
             }
@@ -373,6 +367,7 @@ function closeModal(modal) {
     }
 }
 
+// Close buttons
 document.querySelectorAll('.close, .close-signup, .close-profile').forEach(btn => {
     if (btn) {
         btn.addEventListener('click', () => {
@@ -432,13 +427,52 @@ if (closeProfileBtn) {
 }
 
 // ============================================
-// RESUME DOWNLOAD - GITHUB (NO BILLING)
+// USER DROPDOWN - SMOOTH HOVER EFFECT (FIXED)
+// ============================================
+const userIconElement = document.getElementById('userIcon');
+const userDropdown = document.getElementById('userDropdown');
+let hoverTimeout;
+
+if (userIconElement && userDropdown) {
+    // Show dropdown on mouse enter
+    userIconElement.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+        userDropdown.style.opacity = '1';
+        userDropdown.style.visibility = 'visible';
+        userDropdown.style.transform = 'translateY(0)';
+    });
+    
+    // Hide dropdown with delay on mouse leave
+    userIconElement.addEventListener('mouseleave', () => {
+        hoverTimeout = setTimeout(() => {
+            userDropdown.style.opacity = '0';
+            userDropdown.style.visibility = 'hidden';
+            userDropdown.style.transform = 'translateY(-10px)';
+        }, 200);
+    });
+    
+    // Keep dropdown open when hovering over dropdown itself
+    userDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+        userDropdown.style.opacity = '1';
+        userDropdown.style.visibility = 'visible';
+        userDropdown.style.transform = 'translateY(0)';
+    });
+    
+    userDropdown.addEventListener('mouseleave', () => {
+        userDropdown.style.opacity = '0';
+        userDropdown.style.visibility = 'hidden';
+        userDropdown.style.transform = 'translateY(-10px)';
+    });
+}
+
+// ============================================
+// RESUME DOWNLOAD - GITHUB
 // ============================================
 const downloadResume = document.getElementById('downloadResume');
 if (downloadResume) {
     downloadResume.addEventListener('click', (e) => {
         e.preventDefault();
-        // GitHub Raw link (apni repository ka link yahan paste karein)
         const resumeUrl = "https://raw.githubusercontent.com/irtajajara/resume/main/Irtaja_Jara_Resume.pdf";
         window.open(resumeUrl, '_blank');
         showToast('✅ Resume is opening in new tab!', '#10b981');
@@ -446,7 +480,7 @@ if (downloadResume) {
 }
 
 // ============================================
-// BACK TO TOP BUTTON
+// BACK TO TOP
 // ============================================
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
